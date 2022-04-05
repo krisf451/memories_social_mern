@@ -15,22 +15,45 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
 import Input from "./Input";
+import { signin, signup } from "../../actions/auth";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const Auth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSignup, setIsSignup] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleSubmit = () => {};
-  const handleChange = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (isSignup) {
+      dispatch(signup(formData, history));
+    } else {
+      dispatch(signin(formData, history));
+    }
+  };
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
 
   const switchMode = () => {
     setIsSignup((prevIsSignup) => !prevIsSignup);
-    handleShowPassword(false);
+    setShowPassword(false);
   };
 
   const googleSuccess = async (res) => {
