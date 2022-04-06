@@ -20,6 +20,7 @@ export default makeStyles({
     borderRadius: "15px",
     height: "100%",
     position: "relative",
+    cursor: "pointer",
     transition: "all 200ms ease-in-out",
     "&:hover": {
       transform: "scale(1.025)",
