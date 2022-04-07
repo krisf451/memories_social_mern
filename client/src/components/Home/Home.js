@@ -17,7 +17,7 @@ import Posts from "../Posts/Posts";
 import Form from "../Form/Form";
 import Pagination from "../Pagination";
 
-import { getPosts } from "../../actions/posts";
+import { getPosts, getPostsBySearch } from "../../actions/posts";
 import useStyles from "./styles";
 
 function useQuery() {
@@ -40,8 +40,11 @@ const Home = () => {
   }, [currentId, dispatch]);
 
   const searchPost = () => {
-    if (search.trim()) {
-      //dispatch logic to fetch search posts
+    if (search.trim() || tags) {
+      dispatch(getPostsBySearch({ search, tags: tags.join(",") }));
+      history.push(
+        `/posts/search?searchQuery=${search || "none"}&tags=${tags.join(",")}`
+      );
     } else {
       history.push("/");
     }
@@ -87,10 +90,9 @@ const Home = () => {
                   setSearch(e.target.value);
                 }}
                 onKeyPress={handleKeyPress}
-                style={{ marginBottom: "8px" }}
               />
               <ChipInput
-                style={{ margin: "1px 0" }}
+                style={{ margin: "10px 0" }}
                 value={tags}
                 onAdd={handleAdd}
                 onDelete={handleDelete}
