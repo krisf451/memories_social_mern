@@ -6,12 +6,14 @@ import {
   CardMedia,
   Button,
   Typography,
+  ButtonBase,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
 import DeleteIcon from "@material-ui/icons/Delete";
 import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
 import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 import { useDispatch } from "react-redux";
 import { deletePost, likePost } from "../../../actions/posts";
@@ -19,9 +21,14 @@ import { deletePost, likePost } from "../../../actions/posts";
 import useStyles from "./styles";
 
 const Post = ({ post, setCurrentId }) => {
+  const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
+
+  const openPost = () => {
+    history.push(`/posts/${post._id}`);
+  };
 
   const Likes = () => {
     if (post.likes.length > 0) {
@@ -52,7 +59,7 @@ const Post = ({ post, setCurrentId }) => {
   };
 
   return (
-    <Card className={classes.card} raised elevation={6}>
+    <Card className={classes.card} raised elevation={6} onClick={openPost}>
       <CardMedia
         className={classes.media}
         image={
@@ -71,7 +78,10 @@ const Post = ({ post, setCurrentId }) => {
         user?.result?._id === post?.creator) && (
         <div className={classes.overlay2}>
           <Button
-            onClick={() => setCurrentId(post._id)}
+            onClick={(e) => {
+              e.stopPropagation();
+              setCurrentId(post._id);
+            }}
             style={{ color: "white" }}
             size="small"
           >
