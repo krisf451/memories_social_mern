@@ -16,7 +16,9 @@ const Form = ({ currentId, setCurrentId }) => {
   });
   const dispatch = useDispatch();
   const post = useSelector((state) =>
-    currentId ? state.posts.find((post) => post._id === currentId) : null
+    currentId
+      ? state.posts.posts.find((message) => message._id === currentId)
+      : null
   );
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
@@ -84,7 +86,7 @@ const Form = ({ currentId, setCurrentId }) => {
           label="Message"
           fullWidth
           multiline
-          rows={4}
+          minRows={4}
           value={postData.message}
           onChange={(e) =>
             setPostData({ ...postData, message: e.target.value })
