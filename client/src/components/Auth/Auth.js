@@ -146,7 +146,7 @@ const Auth = () => {
             )}
             onSuccess={googleSuccess}
             onFailure={googleFailure}
-            cookiePolicy="single_host_origin"
+            cookiePolicy={"single_host_origin"}
           />
           <Grid container justifyContent="flex-end">
             <Button onClick={switchMode}>
