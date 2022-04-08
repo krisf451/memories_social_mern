@@ -6,7 +6,6 @@ import {
   CardMedia,
   Button,
   Typography,
-  ButtonBase,
 } from "@material-ui/core";
 import ThumbUpAltIcon from "@material-ui/icons/ThumbUpAlt";
 import ThumbUpAltOutlined from "@material-ui/icons/ThumbUpAltOutlined";
@@ -113,7 +112,10 @@ const Post = ({ post, setCurrentId }) => {
         <Button
           size="small"
           color="primary"
-          onClick={() => dispatch(likePost(post._id))}
+          onClick={(e) => {
+            e.stopPropagation();
+            dispatch(likePost(post._id));
+          }}
           disabled={!user?.result}
         >
           <Likes />
@@ -123,7 +125,10 @@ const Post = ({ post, setCurrentId }) => {
           <Button
             size="small"
             color="secondary"
-            onClick={() => dispatch(deletePost(post._id))}
+            onClick={(e) => {
+              e.stopPropagation();
+              dispatch(deletePost(post._id));
+            }}
           >
             <DeleteIcon fontSize="small" /> Delete
           </Button>
