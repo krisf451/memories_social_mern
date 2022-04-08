@@ -25,10 +25,6 @@ const Post = ({ post, setCurrentId }) => {
   const classes = useStyles();
   const user = JSON.parse(localStorage.getItem("profile"));
 
-  const openPost = () => {
-    history.push(`/posts/${post._id}`);
-  };
-
   const Likes = () => {
     if (post.likes.length > 0) {
       return post.likes.find(
@@ -57,6 +53,10 @@ const Post = ({ post, setCurrentId }) => {
         &nbsp;Like
       </>
     );
+  };
+
+  const openPost = () => {
+    history.push(`/posts/${post._id}`);
   };
 
   return (

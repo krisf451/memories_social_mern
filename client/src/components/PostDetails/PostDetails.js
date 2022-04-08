@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import moment from "moment";
 import { useParams, useHistory } from "react-router-dom";
 import useStyles from "./styles";
-import { getPost } from "../../actions/posts";
+import { getPost, getPostsBySearch } from "../../actions/posts";
 
 const PostDetails = () => {
   const classes = useStyles();
@@ -22,6 +22,14 @@ const PostDetails = () => {
     dispatch(getPost(id));
   }, [id]);
 
+  useEffect(() => {
+    if (post) {
+      dispatch(
+        getPostsBySearch({ search: "none", tags: post?.tags?.join(",") })
+      );
+    }
+  }, [post]);
+
   if (!post) return null;
 
   if (isLoading) {
@@ -31,6 +39,8 @@ const PostDetails = () => {
       </Paper>
     );
   }
+
+  const recommendedPosts = posts.filter(({ _id }) => _id === post._id);
 
   return (
     <Paper style={{ padding: "20px", borderRadius: "15px" }} elevation={6}>
@@ -45,7 +55,7 @@ const PostDetails = () => {
             color="textSecondary"
             component="h2"
           >
-            {post.tags.map((tag) => `#${tag} `)}
+            {post?.tags?.map((tag) => `#${tag} `)}
           </Typography>
           <Typography gutterBottom variant="body1" component="p">
             {post.message}
