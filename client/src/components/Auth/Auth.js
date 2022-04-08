@@ -130,7 +130,7 @@ const Auth = () => {
             {isSignup ? "Sign Up" : "Sign In"}
           </Button>
           <GoogleLogin
-            clientId="538752414475-otn4e3nplsd3e79q39voch40b86cs206.apps.googleusercontent.com"
+            clientId="538752414475-msl418quro95i4tnajt6dmjnuu3390e3.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button
                 className={classes.googleButton}
