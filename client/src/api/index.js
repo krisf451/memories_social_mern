@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://ksf-memories-mern.herokuapp.com/",
+  baseURL: "https://memories-ksf-mern.herokuapp.com/",
 });
 
 //using this to attach a header to every request
